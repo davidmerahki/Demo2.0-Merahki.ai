@@ -6,6 +6,9 @@ import { cn } from '@utils/cn';
 const LoopCanvas = () => {
   const { currentMoment } = useDemoStore();
 
+  // Solo mostrar en momentos 4-9 donde el loop es relevante
+  const shouldShow = currentMoment >= 4 && currentMoment <= 9;
+
   const nodes = [
     { id: 1, label: 'Academia', icon: BookOpen, moment: 4 },
     { id: 2, label: 'Rutas', icon: Route, moment: 4 },
@@ -24,84 +27,85 @@ const LoopCanvas = () => {
     return false;
   });
 
+  // No renderizar si no debe mostrarse
+  if (!shouldShow) return null;
+
   return (
     <motion.div
-      initial={{ y: 20, opacity: 0 }}
+      initial={{ y: 100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ delay: 0.3 }}
-      className="fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-sm border-t border-cool-200 shadow-lg"
+      exit={{ y: 100, opacity: 0 }}
+      transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+      className="fixed bottom-0 left-0 right-0 z-30 bg-background/95 backdrop-blur-xl border-t border-white/10 shadow-2xl"
     >
-      <div className="max-w-7xl mx-auto px-6 py-4">
-        {/* Header */}
-        <div className="flex items-center justify-between mb-3">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3">
+        {/* Header compacto */}
+        <div className="flex items-center justify-between mb-2">
           <div>
-            <h4 className="text-xs font-bold text-cool-800 uppercase tracking-wide">
+            <h4 className="text-xs font-semibold text-foreground uppercase tracking-wide">
               Education-Led Growth Loop
             </h4>
-            <p className="text-xs text-cool-500">
-              Arquitectura del sistema
-            </p>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3">
             <div className="flex items-center gap-1.5">
-              <div className="w-2 h-2 rounded-full bg-warm-500 animate-pulse-glow" />
-              <span className="text-xs text-cool-600">Activo</span>
+              <div className="w-1.5 h-1.5 rounded-full bg-success-500 animate-pulse" />
+              <span className="text-xs text-foreground/60">Activo</span>
             </div>
             <div className="flex items-center gap-1.5">
-              <div className="w-2 h-2 rounded-full bg-cool-300" />
-              <span className="text-xs text-cool-600">Inactivo</span>
+              <div className="w-1.5 h-1.5 rounded-full bg-foreground/20" />
+              <span className="text-xs text-foreground/40">Inactivo</span>
             </div>
           </div>
         </div>
 
-        {/* Loop Diagram */}
-        <div className="flex items-center justify-between gap-2">
+        {/* Loop Diagram - más compacto */}
+        <div className="flex items-center justify-between gap-1.5">
           {nodes.map((node, index) => {
             const Icon = node.icon;
             const isActive = activeNodes.some(n => n.id === node.id);
             const isCurrentFocus = node.moment === currentMoment;
 
             return (
-              <div key={node.id} className="flex items-center gap-2">
+              <div key={node.id} className="flex items-center gap-1.5">
                 {/* Node */}
                 <motion.div
                   initial={{ scale: 0.8, opacity: 0 }}
                   animate={{ 
-                    scale: isCurrentFocus ? 1.1 : 1, 
-                    opacity: isActive ? 1 : 0.4 
+                    scale: isCurrentFocus ? 1.05 : 1, 
+                    opacity: isActive ? 1 : 0.3 
                   }}
                   transition={{ duration: 0.3 }}
                   className={cn(
-                    "relative flex flex-col items-center gap-1.5 p-3 rounded-lg transition-all cursor-pointer group",
-                    isActive ? 'bg-warm-50 hover:bg-warm-100' : 'bg-cool-50',
-                    isCurrentFocus && 'ring-2 ring-warm-500 ring-offset-2'
+                    "relative flex flex-col items-center gap-1 p-2 rounded-lg transition-all cursor-pointer group",
+                    isActive ? 'bg-primary-500/10 hover:bg-primary-500/20' : 'bg-white/5',
+                    isCurrentFocus && 'ring-2 ring-primary-500'
                   )}
                 >
                   {/* Pulse indicator for current focus */}
                   {isCurrentFocus && (
                     <motion.div
-                      className="absolute -top-1 -right-1 w-3 h-3 bg-warm-500 rounded-full"
-                      animate={{ scale: [1, 1.2, 1] }}
+                      className="absolute -top-0.5 -right-0.5 w-2 h-2 bg-primary-500 rounded-full"
+                      animate={{ scale: [1, 1.3, 1], opacity: [1, 0.5, 1] }}
                       transition={{ repeat: Infinity, duration: 2 }}
                     />
                   )}
 
                   <div className={cn(
-                    "p-2 rounded-lg transition-colors",
-                    isActive ? 'bg-warm-500 text-white' : 'bg-cool-200 text-cool-500'
+                    "p-1.5 rounded-lg transition-colors",
+                    isActive ? 'bg-gradient-primary text-white' : 'bg-white/10 text-foreground/40'
                   )}>
-                    <Icon className="w-4 h-4" />
+                    <Icon className="w-3.5 h-3.5" />
                   </div>
                   <span className={cn(
-                    "text-xs font-medium transition-colors",
-                    isActive ? 'text-cool-800' : 'text-cool-500'
+                    "text-[10px] font-medium transition-colors",
+                    isActive ? 'text-foreground' : 'text-foreground/40'
                   )}>
                     {node.label}
                   </span>
 
                   {/* Tooltip on hover */}
-                  <div className="absolute bottom-full mb-2 hidden group-hover:block">
-                    <div className="bg-cool-900 text-white text-xs px-2 py-1 rounded whitespace-nowrap">
+                  <div className="absolute bottom-full mb-2 hidden group-hover:block z-50">
+                    <div className="bg-foreground text-background text-xs px-2 py-1 rounded whitespace-nowrap">
                       Momento {node.moment}
                     </div>
                   </div>
@@ -112,14 +116,15 @@ const LoopCanvas = () => {
                   <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: isActive ? 1 : 0.2 }}
-                    className={cn(
-                      "flex-shrink-0 w-6 h-0.5 transition-colors",
-                      isActive ? 'bg-warm-500' : 'bg-cool-300'
-                    )}
+                    className="flex-shrink-0 flex items-center"
                   >
                     <div className={cn(
-                      "w-0 h-0 border-t-4 border-t-transparent border-b-4 border-b-transparent border-l-4 float-right",
-                      isActive ? 'border-l-warm-500' : 'border-l-cool-300'
+                      "w-4 h-[2px] transition-colors",
+                      isActive ? 'bg-primary-500' : 'bg-white/20'
+                    )} />
+                    <div className={cn(
+                      "w-0 h-0 border-t-[3px] border-t-transparent border-b-[3px] border-b-transparent border-l-[4px]",
+                      isActive ? 'border-l-primary-500' : 'border-l-white/20'
                     )} />
                   </motion.div>
                 )}
@@ -128,23 +133,23 @@ const LoopCanvas = () => {
           })}
         </div>
 
-        {/* Tech Stack */}
-        <div className="mt-3 pt-3 border-t border-cool-200">
-          <div className="flex items-center justify-center gap-6 text-xs text-cool-500">
-            <span className="flex items-center gap-1.5">
-              <div className="w-1.5 h-1.5 rounded-full bg-cool-400" />
+        {/* Tech Stack - más compacto */}
+        <div className="mt-2 pt-2 border-t border-white/10">
+          <div className="flex items-center justify-center gap-4 text-[10px] text-foreground/50">
+            <span className="flex items-center gap-1">
+              <div className="w-1 h-1 rounded-full bg-accent-500" />
               AWS Bedrock
             </span>
-            <span className="flex items-center gap-1.5">
-              <div className="w-1.5 h-1.5 rounded-full bg-cool-400" />
+            <span className="flex items-center gap-1">
+              <div className="w-1 h-1 rounded-full bg-accent-500" />
               QuickSight
             </span>
-            <span className="flex items-center gap-1.5">
-              <div className="w-1.5 h-1.5 rounded-full bg-cool-400" />
-              CRM Integration
+            <span className="flex items-center gap-1">
+              <div className="w-1 h-1 rounded-full bg-accent-500" />
+              CRM
             </span>
-            <span className="flex items-center gap-1.5">
-              <div className="w-1.5 h-1.5 rounded-full bg-cool-400" />
+            <span className="flex items-center gap-1">
+              <div className="w-1 h-1 rounded-full bg-accent-500" />
               In-App SDK
             </span>
           </div>

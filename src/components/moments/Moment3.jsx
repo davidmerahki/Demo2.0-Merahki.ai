@@ -1,9 +1,124 @@
 import { motion } from 'framer-motion';
+import { useState } from 'react';
 import { pageVariants, pageTransition } from '@utils/motion';
 import useDemoStore from '@store/useDemoStore';
+import { Users, Heart, DollarSign, HeadphonesIcon, Clock } from 'lucide-react';
+import Badge from '@components/ui/Badge';
+import Card from '@components/ui/Card';
+import { AnimatedBlob, GradientOverlay, merahkiAnimations } from '@utils/merahkiComponents';
 
 const Moment3 = () => {
   const { direction } = useDemoStore();
+  const [selectedIndustry, setSelectedIndustry] = useState('saas_b2b');
+  const [educationIntensity, setEducationIntensity] = useState(75);
+
+  // Seeds de datos por industria
+  const industryData = {
+    saas_b2b: {
+      name: 'SaaS B2B',
+      before: {
+        adoption: 25,
+        csat: 3.2,
+        ltv: 12000,
+        support: 450,
+        ttv: 14
+      },
+      after: {
+        adoption: 65,
+        csat: 4.5,
+        ltv: 16000,
+        support: 360,
+        ttv: 2.3
+      }
+    },
+    fintech: {
+      name: 'Fintech',
+      before: {
+        adoption: 22,
+        csat: 3.0,
+        ltv: 15000,
+        support: 520,
+        ttv: 16
+      },
+      after: {
+        adoption: 62,
+        csat: 4.4,
+        ltv: 20000,
+        support: 390,
+        ttv: 2.8
+      }
+    },
+    ecommerce: {
+      name: 'E-commerce',
+      before: {
+        adoption: 30,
+        csat: 3.5,
+        ltv: 8000,
+        support: 380,
+        ttv: 10
+      },
+      after: {
+        adoption: 70,
+        csat: 4.6,
+        ltv: 11000,
+        support: 280,
+        ttv: 1.8
+      }
+    }
+  };
+
+  const currentData = industryData[selectedIndustry];
+  
+  // Calcular deltas basados en intensidad
+  const calculateDelta = (before, after) => {
+    const baseDelta = ((after - before) / before) * 100;
+    return baseDelta * (educationIntensity / 100);
+  };
+
+  const kpis = [
+    {
+      key: 'adoption',
+      label: 'Feature Adoption',
+      icon: Users,
+      suffix: '%',
+      color: 'primary',
+      inverse: false
+    },
+    {
+      key: 'csat',
+      label: 'CSAT Score',
+      icon: Heart,
+      decimals: 1,
+      color: 'secondary',
+      inverse: false
+    },
+    {
+      key: 'ltv',
+      label: 'Customer LTV',
+      icon: DollarSign,
+      prefix: '$',
+      format: (val) => (val / 1000).toFixed(1) + 'k',
+      color: 'accent',
+      inverse: false
+    },
+    {
+      key: 'support',
+      label: 'Support Tickets',
+      icon: HeadphonesIcon,
+      suffix: '/mes',
+      color: 'success',
+      inverse: true
+    },
+    {
+      key: 'ttv',
+      label: 'Time to Value',
+      icon: Clock,
+      suffix: ' días',
+      decimals: 1,
+      color: 'success',
+      inverse: true
+    }
+  ];
 
   return (
     <motion.div
@@ -15,53 +130,211 @@ const Moment3 = () => {
       transition={pageTransition}
       className="w-full h-full flex items-center justify-center bg-background relative overflow-hidden"
     >
-      {/* Efectos de fondo con blobs animados */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary-500/20 rounded-full blur-3xl animate-pulse-slow" />
-      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-secondary-500/20 rounded-full blur-3xl animate-pulse-slow animate-delay-500" />
-      
-      {/* Overlay gradiente */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/60 to-background pointer-events-none" />
+      {/* Efectos de fondo */}
+      <AnimatedBlob color="primary" size="lg" position="top-left" delay={0} />
+      <AnimatedBlob color="secondary" size="md" position="bottom-right" delay={300} />
+      <GradientOverlay direction="to-b" opacity="default" />
 
       {/* Contenido principal */}
-      <div className="relative z-10 text-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="text-center mb-12"
+          {...merahkiAnimations.fadeInUp}
         >
-          <div className="badge mb-6 mx-auto">
-            <span className="text-sm font-semibold text-gradient">Momento 3</span>
-          </div>
+          <Badge gradient className="mb-6">
+            Momento 3
+          </Badge>
 
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold text-gradient mb-6">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold text-gradient mb-4">
             Qué Cambia con Customer Education
           </h2>
           
-          <p className="text-base md:text-lg text-foreground/70 leading-relaxed mb-8">
-            Split-Screen Antes/Después • Selector de Industria
+          <p className="text-base md:text-lg text-foreground/70 leading-relaxed max-w-3xl mx-auto mb-4">
+            Si buscas aumentar adquisición, retención, LTV y usuarios que permanecen después de 12 semanas, necesitas estrategias de Customer Education.
           </p>
+          
+          <p className="text-sm md:text-base text-foreground/60 max-w-2xl mx-auto">
+            Educar impacta Growth, Marketing, Ventas y CX. Reduce costos de soporte, acorta el ciclo de ventas y potencia el cross-sell.
+          </p>
+        </motion.div>
 
-          {/* Card de ejemplo con glass morphism */}
+        {/* Selector de Industria */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2, ease: merahkiAnimations.easing }}
+          className="flex justify-center gap-3 mb-8"
+        >
+          {Object.entries(industryData).map(([key, data]) => (
+            <button
+              key={key}
+              onClick={() => setSelectedIndustry(key)}
+              className={`
+                px-6 py-3 rounded-full font-semibold transition-all duration-300
+                ${
+                  selectedIndustry === key
+                    ? 'bg-gradient-primary text-white shadow-glow-md'
+                    : 'bg-white/5 text-foreground/70 hover:bg-white/10 border border-white/10'
+                }
+              `}
+            >
+              {data.name}
+            </button>
+          ))}
+        </motion.div>
+
+        {/* Split Screen Antes/Después */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+          {/* ANTES - Lado Izquierdo (Pasado) */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.4, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            className="glass-card p-6 md:p-8 max-w-2xl mx-auto hover:scale-[1.02] hover:-translate-y-2 transition-all duration-300"
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.3, ease: merahkiAnimations.easing }}
           >
-            <div className="flex items-center justify-center space-x-4">
-              <div className="text-center">
-                <div className="text-4xl font-bold text-danger-500 mb-2">Antes</div>
-                <p className="text-sm text-foreground/60">Sin educación</p>
+            <Card glass={false} hover={false} className="bg-danger-500/5 border-danger-500/20">
+              <div className="text-center mb-6">
+                <h3 className="text-2xl font-heading font-bold text-danger-400 mb-2">
+                  Sin Educación
+                </h3>
+                <p className="text-sm text-foreground/60">Baseline actual</p>
               </div>
               
-              <div className="h-16 w-px bg-gradient-to-b from-transparent via-foreground/20 to-transparent" />
-              
-              <div className="text-center">
-                <div className="text-4xl font-bold text-success-500 mb-2">Después</div>
-                <p className="text-sm text-foreground/60">Con ELG</p>
+              <div className="space-y-4">
+                {kpis.map((kpi) => {
+                  const Icon = kpi.icon;
+                  const value = currentData.before[kpi.key];
+                  const displayValue = kpi.format ? kpi.format(value) : value.toFixed(kpi.decimals || 0);
+                  
+                  return (
+                    <div key={kpi.key} className="flex items-center justify-between p-3 bg-white/5 rounded-lg">
+                      <div className="flex items-center gap-3">
+                        <div className="p-2 rounded-lg bg-danger-500/20">
+                          <Icon className="w-4 h-4 text-danger-400" />
+                        </div>
+                        <span className="text-sm text-foreground/70">{kpi.label}</span>
+                      </div>
+                      <span className="text-lg font-bold text-foreground">
+                        {kpi.prefix}{displayValue}{kpi.suffix}
+                      </span>
+                    </div>
+                  );
+                })}
               </div>
-            </div>
+            </Card>
           </motion.div>
+
+          {/* DESPUÉS - Lado Derecho (Futuro) */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.4, ease: merahkiAnimations.easing }}
+          >
+            <Card glass={false} hover={false} className="bg-success-500/5 border-success-500/20">
+              <div className="text-center mb-6">
+                <h3 className="text-2xl font-heading font-bold text-success-400 mb-2">
+                  Con ELG
+                </h3>
+                <p className="text-sm text-foreground/60">Impacto medido</p>
+              </div>
+              
+              <div className="space-y-4">
+                {kpis.map((kpi) => {
+                  const Icon = kpi.icon;
+                  const beforeValue = currentData.before[kpi.key];
+                  const afterValue = currentData.after[kpi.key];
+                  const delta = calculateDelta(beforeValue, afterValue);
+                  const adjustedAfter = beforeValue + (afterValue - beforeValue) * (educationIntensity / 100);
+                  const displayValue = kpi.format ? kpi.format(adjustedAfter) : adjustedAfter.toFixed(kpi.decimals || 0);
+                  const isPositive = kpi.inverse ? delta < 0 : delta > 0;
+                  
+                  return (
+                    <div key={kpi.key} className="flex items-center justify-between p-3 bg-white/5 rounded-lg">
+                      <div className="flex items-center gap-3">
+                        <div className="p-2 rounded-lg bg-success-500/20">
+                          <Icon className="w-4 h-4 text-success-400" />
+                        </div>
+                        <span className="text-sm text-foreground/70">{kpi.label}</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <span className="text-lg font-bold text-foreground">
+                          {kpi.prefix}{displayValue}{kpi.suffix}
+                        </span>
+                        <Badge 
+                          variant={isPositive ? 'success' : 'danger'} 
+                          trend={isPositive ? 'up' : 'down'}
+                          className="text-xs"
+                        >
+                          {delta > 0 ? '+' : ''}{Math.abs(delta).toFixed(0)}%
+                        </Badge>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </Card>
+          </motion.div>
+        </div>
+
+        {/* Slider de Intensidad */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.5, ease: merahkiAnimations.easing }}
+          className="glass-card p-6 max-w-2xl mx-auto"
+        >
+          <div className="flex items-center justify-between mb-4">
+            <label className="text-sm font-semibold text-foreground/80">
+              Intensidad de Educación
+            </label>
+            <span className="text-lg font-bold text-gradient">
+              {educationIntensity}%
+            </span>
+          </div>
+          
+          <input
+            type="range"
+            min="0"
+            max="100"
+            value={educationIntensity}
+            onChange={(e) => setEducationIntensity(Number(e.target.value))}
+            className="w-full h-2 bg-white/10 rounded-full appearance-none cursor-pointer
+              [&::-webkit-slider-thumb]:appearance-none
+              [&::-webkit-slider-thumb]:w-4
+              [&::-webkit-slider-thumb]:h-4
+              [&::-webkit-slider-thumb]:rounded-full
+              [&::-webkit-slider-thumb]:bg-gradient-primary
+              [&::-webkit-slider-thumb]:shadow-glow-md
+              [&::-webkit-slider-thumb]:cursor-pointer
+              [&::-moz-range-thumb]:w-4
+              [&::-moz-range-thumb]:h-4
+              [&::-moz-range-thumb]:rounded-full
+              [&::-moz-range-thumb]:bg-gradient-primary
+              [&::-moz-range-thumb]:border-0
+              [&::-moz-range-thumb]:shadow-glow-md
+              [&::-moz-range-thumb]:cursor-pointer"
+          />
+          
+          <div className="flex justify-between mt-2 text-xs text-foreground/50">
+            <span>Sin educación</span>
+            <span>Programa completo</span>
+          </div>
+          
+          <p className="text-xs text-center text-foreground/50 mt-4 italic">
+            Rangos de impacto basados en implementaciones reales
+          </p>
+        </motion.div>
+        
+        {/* Mensaje de impacto */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.6, ease: merahkiAnimations.easing }}
+          className="mt-8 text-center"
+        >
+          <p className="text-sm md:text-base text-foreground/80 max-w-3xl mx-auto">
+            <span className="font-semibold text-gradient">Impacto medido:</span> +30-40% adopción de funcionalidades, +20-30% CSAT, +25-35% LTV, -10-20% costos de soporte.
+          </p>
         </motion.div>
       </div>
     </motion.div>

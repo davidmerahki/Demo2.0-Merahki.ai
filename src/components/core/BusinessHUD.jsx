@@ -1,7 +1,6 @@
 import { motion } from 'framer-motion';
-import { TrendingUp, TrendingDown, Users, Heart, DollarSign, HeadphonesIcon, Clock } from 'lucide-react';
+import { TrendingUp, DollarSign, Target, Zap, ShieldCheck } from 'lucide-react';
 import useDemoStore from '@store/useDemoStore';
-import Badge from '@components/ui/Badge';
 import AnimatedCounter from '@components/ui/AnimatedCounter';
 import { cn } from '@utils/cn';
 import { useEffect } from 'react';
@@ -15,18 +14,12 @@ const BusinessHUD = () => {
 
   const kpiConfig = [
     {
-      key: 'adoption',
-      label: 'Adoption',
-      icon: Users,
+      key: 'roi',
+      label: 'ROI',
+      icon: TrendingUp,
       suffix: '%',
-      color: 'warm',
-    },
-    {
-      key: 'csat',
-      label: 'CSAT',
-      icon: Heart,
-      decimals: 1,
-      color: 'warm',
+      color: 'primary',
+      highlight: true,
     },
     {
       key: 'ltv',
@@ -34,40 +27,38 @@ const BusinessHUD = () => {
       icon: DollarSign,
       prefix: '$',
       format: (val) => (val / 1000).toFixed(1) + 'k',
-      color: 'warm',
+      color: 'primary',
     },
     {
-      key: 'support',
-      label: 'Support',
-      icon: HeadphonesIcon,
-      suffix: ' tickets',
-      color: 'success',
-      inverse: true,
-    },
-    {
-      key: 'ttv',
-      label: 'TTV',
-      icon: Clock,
-      suffix: ' días',
+      key: 'winRate',
+      label: 'Win Rate',
+      icon: Target,
+      suffix: '%',
       decimals: 1,
       color: 'success',
-      inverse: true,
+    },
+    {
+      key: 'retention',
+      label: 'Retención',
+      icon: ShieldCheck,
+      suffix: '%',
+      decimals: 1,
+      color: 'success',
+    },
+    {
+      key: 'engagement',
+      label: 'Engagement',
+      icon: Zap,
+      suffix: '%',
+      decimals: 1,
+      color: 'success',
     },
   ];
 
-  const getDeltaBadge = (delta, inverse = false) => {
-    if (!delta) return null;
-    
-    const isPositive = inverse ? !delta.isPositive : delta.isPositive;
-    const variant = isPositive ? 'success' : 'danger';
-    const trend = isPositive ? 'up' : 'down';
+  const getImpactText = (delta) => {
+    if (!delta || !delta.isPositive) return null;
     const sign = delta.percent > 0 ? '+' : '';
-
-    return (
-      <Badge variant={variant} trend={trend} className="text-xs">
-        {sign}{delta.percent.toFixed(0)}%
-      </Badge>
-    );
+    return `${sign}${Math.abs(delta.percent).toFixed(0)}%`;
   };
 
   return (
@@ -80,11 +71,18 @@ const BusinessHUD = () => {
       <div className="glass-card p-5">
         {/* Header */}
         <div className="mb-4 pb-3 border-b border-white/10">
-          <h3 className="text-sm font-heading font-bold text-gradient uppercase tracking-wide">
-            Business Impact
-          </h3>
-          <p className="text-xs text-foreground/60 mt-1">
-            KPIs en tiempo real
+          <div className="flex items-center justify-between mb-2">
+            <h3 className="text-sm font-heading font-bold text-gradient uppercase tracking-wide">
+              Business Impact
+            </h3>
+            <div className="px-2 py-1 bg-primary-500/20 rounded-full">
+              <p className="text-[10px] font-bold text-primary-400 uppercase tracking-wide">
+                Live
+              </p>
+            </div>
+          </div>
+          <p className="text-xs text-foreground/60">
+            Métricas validadas por Forrester 2024
           </p>
         </div>
 
@@ -92,7 +90,6 @@ const BusinessHUD = () => {
         <div className="space-y-3">
           {kpiConfig.map((config) => {
             const Icon = config.icon;
-            const beforeValue = kpis.before[config.key];
             const afterValue = kpis.after[config.key];
             const delta = kpis.deltas?.[config.key];
 
@@ -101,35 +98,47 @@ const BusinessHUD = () => {
                 key={config.key}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="flex items-center justify-between p-3 bg-white/5 rounded-lg hover:bg-white/10 transition-merahki border border-white/5 hover:border-white/10"
+                className="flex items-center gap-3 p-3 bg-white/5 rounded-lg hover:bg-white/10 transition-merahki border border-white/5 hover:border-white/10"
               >
-                <div className="flex items-center gap-3">
-                  <div className={cn(
-                    "p-2 rounded-lg",
-                    config.color === 'warm' ? 'bg-primary-500/20' : 'bg-success-500/20'
-                  )}>
-                    <Icon className={cn(
-                      "w-4 h-4",
-                      config.color === 'warm' ? 'text-primary-400' : 'text-success-400'
-                    )} />
-                  </div>
-                  <div>
-                    <p className="text-xs text-foreground/70 font-medium">
-                      {config.label}
-                    </p>
-                    <div className="flex items-baseline gap-2">
+                <div className={cn(
+                  "p-2 rounded-lg",
+                  config.color === 'primary' ? 'bg-primary-500/20' : 'bg-success-500/20'
+                )}>
+                  <Icon className={cn(
+                    "w-4 h-4",
+                    config.color === 'primary' ? 'text-primary-400' : 'text-success-400'
+                  )} />
+                </div>
+                <div className="flex-1">
+                  <p className="text-xs text-foreground/60 font-medium mb-0.5">
+                    {config.label}
+                  </p>
+                  <div className="flex items-baseline gap-2">
+                    {config.format ? (
+                      <span className={cn(
+                        "text-xl font-bold",
+                        config.highlight ? 'text-primary-400' : 'text-foreground'
+                      )}>
+                        {config.prefix}{config.format(afterValue)}
+                      </span>
+                    ) : (
                       <AnimatedCounter
                         value={afterValue}
                         decimals={config.decimals || 0}
                         prefix={config.prefix || ''}
                         suffix={config.suffix || ''}
-                        className="text-lg font-bold text-foreground"
+                        className={cn(
+                          "text-xl font-bold",
+                          config.highlight ? 'text-primary-400' : 'text-foreground'
+                        )}
                       />
-                    </div>
+                    )}
+                    {delta && delta.isPositive && (
+                      <span className="text-sm font-semibold text-success-400">
+                        {getImpactText(delta)}
+                      </span>
+                    )}
                   </div>
-                </div>
-                <div className="text-right">
-                  {getDeltaBadge(delta, config.inverse)}
                 </div>
               </motion.div>
             );
@@ -138,9 +147,15 @@ const BusinessHUD = () => {
 
         {/* Footer Note */}
         <div className="mt-4 pt-3 border-t border-white/10">
-          <p className="text-xs text-foreground/50 text-center">
-            Comparado con baseline sin educación
-          </p>
+          <div className="flex items-center justify-between text-xs">
+            <p className="text-foreground/50">
+              vs. baseline sin educación
+            </p>
+            <div className="flex items-center gap-1">
+              <div className="w-1.5 h-1.5 rounded-full bg-success-500 animate-pulse" />
+              <span className="text-foreground/60 font-medium">Tiempo real</span>
+            </div>
+          </div>
         </div>
       </div>
     </motion.div>

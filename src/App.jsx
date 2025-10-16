@@ -1,5 +1,6 @@
 import { AnimatePresence } from 'framer-motion';
 import useDemoStore from '@store/useDemoStore';
+import { cn } from '@utils/cn';
 import DemoController from '@components/core/DemoController';
 import BusinessHUD from '@components/core/BusinessHUD';
 import LoopCanvas from '@components/core/LoopCanvas';
@@ -46,7 +47,10 @@ function App() {
       <BusinessHUD />
 
       {/* Main Content Area */}
-      <main className="relative z-10 pt-24 pb-32 px-6">
+      <main className={cn(
+        "relative z-10 pt-24 px-6 transition-all duration-300",
+        currentMoment >= 4 && currentMoment <= 9 ? "pb-40" : "pb-32"
+      )}>
         <div className="max-w-7xl mx-auto">
           <AnimatePresence mode="wait">
             <CurrentMoment key={currentMoment} />

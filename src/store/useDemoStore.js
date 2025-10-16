@@ -39,32 +39,33 @@ const useDemoStore = create((set, get) => ({
   setIndustry: (industry) => set({ selectedIndustry: industry }),
 
   // ============ KPIs GLOBALES (BusinessHUD) ============
+  // Datos basados en Forrester Consulting 2024 e Intellum 2024
   kpis: {
-    // Estado "Antes" (baseline)
+    // Estado "Antes" (baseline sin educación)
     before: {
-      adoption: 35, // % usuarios que adoptan
-      csat: 6.5, // Score CSAT
-      ltv: 12000, // LTV en USD
-      support: 45, // Tickets por usuario/mes
-      salesCycle: 90, // Días
-      ttv: 21, // Time to Value en días
-      cvr: 2.5, // Conversion Rate %
-      activation: 28, // % activación en 7 días
-      churn: 35, // % churn en 90 días
-      pqls: 0, // Product Qualified Leads
+      adoption: 35, // % usuarios que adoptan producto
+      csat: 6.8, // Score CSAT (1-10)
+      ltv: 15000, // LTV en USD
+      support: 520, // Tickets mensuales
+      salesCycle: 90, // Días ciclo de ventas
+      ttv: 14, // Time to Value en días
+      winRate: 18, // % tasa de cierre
+      retention: 75, // % retención anual
+      engagement: 42, // % engagement con producto
+      roi: 0, // ROI del programa educativo
     },
-    // Estado "Después" (con ELG)
+    // Estado "Después" (con ELG - datos Forrester 2024)
     after: {
-      adoption: 68, // +94% mejora
-      csat: 8.9, // +37% mejora
-      ltv: 16800, // +40% mejora
-      support: 18, // -60% reducción
-      salesCycle: 45, // -50% reducción
-      ttv: 3.5, // -83% reducción (6x)
-      cvr: 8.2, // +228% mejora
-      activation: 72, // +157% mejora
-      churn: 12, // -66% reducción
-      pqls: 0, // Se calcula dinámicamente
+      adoption: 48.4, // +38.3% (Forrester 2024)
+      csat: 8.6, // +26.2% (Forrester 2024)
+      ltv: 20250, // +35% (Forrester 2024)
+      support: 439, // -15.5% costos (Forrester 2024)
+      salesCycle: 65, // -28.1% (Forrester 2024)
+      ttv: 14, // Baseline (mejora en momentos específicos)
+      winRate: 23.2, // +28.9% (Forrester 2024)
+      retention: 91.7, // +22.2% con programas formalizados (Forrester 2024)
+      engagement: 54.9, // +30.7% (Forrester 2024)
+      roi: 372, // 372% ROI promedio (Forrester 2024)
     },
     // Deltas calculados
     deltas: {},

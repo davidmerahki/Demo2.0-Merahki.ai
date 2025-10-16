@@ -73,11 +73,19 @@ export default {
         },
         success: {
           50: '#F0FDF4',
+          400: '#4ADE80',
           500: '#22C55E',
           600: '#16A34A',
         },
+        warning: {
+          50: '#FFFBEB',
+          400: '#FBBF24',
+          500: '#F59E0B',
+          600: '#D97706',
+        },
         danger: {
           50: '#FEF2F2',
+          400: '#F87171',
           500: '#EF4444',
           600: '#DC2626',
         },
@@ -186,6 +194,9 @@ export default {
         'glow-lg': '0 0 40px rgba(168, 85, 247, 0.6)',
         'glow-pink': '0 0 20px rgba(236, 72, 153, 0.5)',
         'glow-blue': '0 0 20px rgba(59, 130, 246, 0.5)',
+      },
+      gridTemplateColumns: {
+        '20': 'repeat(20, minmax(0, 1fr))',
       },
     },
   },

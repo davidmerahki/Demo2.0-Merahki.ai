@@ -15,15 +15,15 @@ const DemoController = () => {
   } = useDemoStore();
 
   const momentTitles = [
-    'La Realidad Actual',
-    'Por Qué Se Van',
-    'Qué Cambia con Customer Education',
-    'Cómo Funciona',
-    'Del Interés al Valor',
-    'De Lead a Advocate',
-    'Habla con tus Datos',
-    'CTA: Diagnóstico ELG',
-    'No Sigas Quemando Leads',
+    'La Realidad Actual', // M1: Shock de Fuga
+    'Por Qué Se Van', // M2: Urgencia
+    'Qué Cambia con Customer Education', // M3: Credibilidad
+    'Cómo Funciona (ELG en Acción)', // M4: Lógica del Sistema
+    'Del Interés al Valor', // M5: Onboarding 6×
+    'De Lead a Advocate', // M6: Trazabilidad 360°
+    'Activa tu Estrategia ELG', // M7: CTA
+    'Evita Seguir Quemando Leads', // M8: O loops... o fuga
+    'Habla con tus Datos', // M9: Ask Merahki
   ];
 
   return (
