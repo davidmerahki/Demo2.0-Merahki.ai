@@ -1,0 +1,138 @@
+{
+  "metrics": [
+    {
+      "id": "adoption",
+      "name": "Adoption Rate",
+      "synonyms": ["adopción", "tasa de adopción", "usuarios activos"],
+      "definition": "Porcentaje de usuarios que utilizan activamente el producto",
+      "formula": "(Usuarios Activos / Total Usuarios) * 100",
+      "unit": "%",
+      "goodDirection": "up"
+    },
+    {
+      "id": "csat",
+      "name": "Customer Satisfaction Score",
+      "synonyms": ["satisfacción", "csat", "score de satisfacción"],
+      "definition": "Puntuación promedio de satisfacción del cliente",
+      "formula": "Promedio de respuestas en escala 1-10",
+      "unit": "score",
+      "goodDirection": "up"
+    },
+    {
+      "id": "ltv",
+      "name": "Lifetime Value",
+      "synonyms": ["valor de vida", "ltv", "customer lifetime value"],
+      "definition": "Valor total que un cliente genera durante su relación con la empresa",
+      "formula": "ARPU * Vida Promedio del Cliente",
+      "unit": "USD",
+      "goodDirection": "up"
+    },
+    {
+      "id": "support",
+      "name": "Support Tickets",
+      "synonyms": ["tickets", "soporte", "tickets de soporte"],
+      "definition": "Número de tickets de soporte por usuario por mes",
+      "formula": "Total Tickets / Total Usuarios / Meses",
+      "unit": "tickets/usuario/mes",
+      "goodDirection": "down"
+    },
+    {
+      "id": "salesCycle",
+      "name": "Sales Cycle",
+      "synonyms": ["ciclo de ventas", "tiempo de cierre", "sales cycle length"],
+      "definition": "Tiempo promedio desde primer contacto hasta cierre",
+      "formula": "Promedio de días entre primer contacto y firma",
+      "unit": "días",
+      "goodDirection": "down"
+    },
+    {
+      "id": "ttv",
+      "name": "Time to Value",
+      "synonyms": ["tiempo a valor", "ttv", "time to first value"],
+      "definition": "Tiempo que tarda un usuario en alcanzar su primer momento 'Aha!'",
+      "formula": "Días desde signup hasta primer valor percibido",
+      "unit": "días",
+      "goodDirection": "down"
+    },
+    {
+      "id": "cvr",
+      "name": "Conversion Rate",
+      "synonyms": ["tasa de conversión", "cvr", "conversion"],
+      "definition": "Porcentaje de leads que se convierten en clientes",
+      "formula": "(Clientes Nuevos / Total Leads) * 100",
+      "unit": "%",
+      "goodDirection": "up"
+    },
+    {
+      "id": "activation",
+      "name": "Activation Rate",
+      "synonyms": ["activación", "tasa de activación", "activation"],
+      "definition": "Porcentaje de usuarios que completan acciones clave en primeros 7 días",
+      "formula": "(Usuarios Activados / Total Signups) * 100",
+      "unit": "%",
+      "goodDirection": "up"
+    },
+    {
+      "id": "churn",
+      "name": "Churn Rate",
+      "synonyms": ["tasa de abandono", "churn", "cancelaciones"],
+      "definition": "Porcentaje de clientes que cancelan en un periodo",
+      "formula": "(Clientes Perdidos / Total Clientes Inicio Periodo) * 100",
+      "unit": "%",
+      "goodDirection": "down"
+    },
+    {
+      "id": "ndr",
+      "name": "Net Dollar Retention",
+      "synonyms": ["retención neta", "ndr", "net retention"],
+      "definition": "Ingresos retenidos y expandidos de cohorte existente",
+      "formula": "((MRR Inicio + Expansión - Contracción - Churn) / MRR Inicio) * 100",
+      "unit": "%",
+      "goodDirection": "up"
+    },
+    {
+      "id": "pqls",
+      "name": "Product Qualified Leads",
+      "synonyms": ["pqls", "leads calificados", "product qualified leads"],
+      "definition": "Leads que muestran señales de intención mediante comportamiento educativo",
+      "formula": "Leads con Score NBA > Umbral",
+      "unit": "count",
+      "goodDirection": "up"
+    },
+    {
+      "id": "referrals",
+      "name": "Referrals",
+      "synonyms": ["referidos", "referencias", "customer referrals"],
+      "definition": "Número de nuevos leads generados por clientes existentes",
+      "formula": "Total de leads con source = 'referral'",
+      "unit": "count",
+      "goodDirection": "up"
+    }
+  ],
+  "concepts": [
+    {
+      "id": "elg",
+      "name": "Education-Led Growth",
+      "definition": "Estrategia de crecimiento que usa educación como motor principal para adquisición, activación y expansión",
+      "relatedMetrics": ["adoption", "ttv", "ltv", "pqls"]
+    },
+    {
+      "id": "nba",
+      "name": "Next Best Action",
+      "definition": "Recomendación inteligente de la siguiente mejor acción para un usuario basada en su contexto y comportamiento",
+      "relatedMetrics": ["activation", "cvr"]
+    },
+    {
+      "id": "jtbd",
+      "name": "Jobs To Be Done",
+      "definition": "Framework que identifica las tareas que un usuario necesita completar para alcanzar valor",
+      "relatedMetrics": ["ttv", "activation"]
+    },
+    {
+      "id": "aha_moment",
+      "name": "Aha Moment",
+      "definition": "Momento en que un usuario percibe el valor core del producto por primera vez",
+      "relatedMetrics": ["ttv", "activation", "retention"]
+    }
+  ]
+}

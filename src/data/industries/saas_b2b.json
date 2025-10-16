@@ -1,0 +1,178 @@
+{
+  "id": "saas_b2b",
+  "name": "SaaS B2B",
+  "description": "Software as a Service para empresas",
+  "kpis": {
+    "before": {
+      "adoption": 35,
+      "csat": 6.5,
+      "ltv": 12000,
+      "support": 45,
+      "salesCycle": 90,
+      "ttv": 21,
+      "cvr": 2.5,
+      "activation": 28,
+      "churn": 35,
+      "ndr": 95,
+      "referrals": 8
+    },
+    "after": {
+      "adoption": 68,
+      "csat": 8.9,
+      "ltv": 16800,
+      "support": 18,
+      "salesCycle": 45,
+      "ttv": 3.5,
+      "cvr": 8.2,
+      "activation": 72,
+      "churn": 12,
+      "ndr": 118,
+      "referrals": 24
+    },
+    "ranges": {
+      "adoption": { "min": 30, "max": 40 },
+      "csat": { "min": 25, "max": 35 },
+      "ltv": { "min": 25, "max": 40 },
+      "support": { "min": -50, "max": -70 },
+      "salesCycle": { "min": -40, "max": -60 }
+    }
+  },
+  "useCases": [
+    {
+      "id": "uc1",
+      "title": "Onboarding Automatizado",
+      "description": "Reducir TTV mediante rutas educativas personalizadas",
+      "impact": "6x más rápido"
+    },
+    {
+      "id": "uc2",
+      "title": "Scoring de PQLs",
+      "description": "Identificar leads calificados por comportamiento educativo",
+      "impact": "+150% PQLs"
+    },
+    {
+      "id": "uc3",
+      "title": "Expansión de Cuentas",
+      "description": "Educar sobre features avanzadas para upsell",
+      "impact": "+23% NDR"
+    }
+  ],
+  "survivalCurve": [
+    { "week": 0, "retention": 100, "reason": null },
+    { "week": 1, "retention": 78, "reason": "No entendió caso de uso" },
+    { "week": 2, "retention": 65, "reason": "Complejidad técnica" },
+    { "week": 4, "retention": 52, "reason": "Falta de adopción de equipo" },
+    { "week": 8, "retention": 45, "reason": "No alcanzó valor esperado" },
+    { "week": 12, "retention": 38, "reason": "Cambio de prioridades" }
+  ],
+  "funnelData": {
+    "day1": {
+      "leads": 1000,
+      "activated": 280,
+      "cvr": 2.5,
+      "ttv": 21
+    },
+    "day5": {
+      "leads": 1000,
+      "activated": 195,
+      "cvr": 1.8,
+      "ttv": 24
+    },
+    "day10": {
+      "leads": 1000,
+      "activated": 140,
+      "cvr": 1.2,
+      "ttv": 28
+    }
+  },
+  "journeyMap": {
+    "nodes": [
+      { "id": "ad", "label": "Anuncio", "type": "source" },
+      { "id": "academy", "label": "Academia Abierta", "type": "education" },
+      { "id": "route", "label": "Ruta Personalizada", "type": "education" },
+      { "id": "signals", "label": "Señales de Intención", "type": "data" },
+      { "id": "scoring", "label": "Scoring NBA", "type": "intelligence" },
+      { "id": "crm", "label": "CRM Sync", "type": "integration" },
+      { "id": "sales", "label": "Sales Assist", "type": "action" },
+      { "id": "guides", "label": "In-App Guides", "type": "activation" }
+    ],
+    "edges": [
+      { "from": "ad", "to": "academy" },
+      { "from": "academy", "to": "route" },
+      { "from": "route", "to": "signals" },
+      { "from": "signals", "to": "scoring" },
+      { "from": "scoring", "to": "crm" },
+      { "from": "crm", "to": "sales" },
+      { "from": "sales", "to": "guides" }
+    ]
+  },
+  "jtbdTasks": [
+    {
+      "id": "task1",
+      "title": "Conectar primera fuente de datos",
+      "category": "setup",
+      "estimatedTime": "5 min"
+    },
+    {
+      "id": "task2",
+      "title": "Crear primer dashboard",
+      "category": "core",
+      "estimatedTime": "10 min"
+    },
+    {
+      "id": "task3",
+      "title": "Invitar a tu equipo",
+      "category": "collaboration",
+      "estimatedTime": "3 min"
+    },
+    {
+      "id": "task4",
+      "title": "Configurar alertas",
+      "category": "automation",
+      "estimatedTime": "7 min"
+    },
+    {
+      "id": "task5",
+      "title": "Compartir primer insight",
+      "category": "value",
+      "estimatedTime": "5 min"
+    }
+  ],
+  "attributionPath": {
+    "userId": "user_demo_001",
+    "name": "María González",
+    "company": "TechCorp",
+    "timeline": [
+      { "date": "2024-01-15", "event": "Descubrió vía LinkedIn Ad", "type": "source" },
+      { "date": "2024-01-16", "event": "Completó curso 'Analytics 101'", "type": "education" },
+      { "date": "2024-01-18", "event": "Exploró feature: Dashboards", "type": "engagement" },
+      { "date": "2024-01-20", "event": "Solicitó demo", "type": "conversion" },
+      { "date": "2024-01-25", "event": "Activó cuenta", "type": "activation" },
+      { "date": "2024-02-10", "event": "NPS: 9 - Promotor", "type": "satisfaction" },
+      { "date": "2024-03-05", "event": "Refirió 2 colegas", "type": "advocacy" }
+    ]
+  },
+  "nlqExamples": [
+    {
+      "query": "¿Qué cohortes activaron más rápido tras el curso X?",
+      "response": "Usuarios que completaron 'Onboarding Avanzado' activaron 4.2x más rápido (promedio 5 días vs 21 días).",
+      "chart": "bar",
+      "confidence": "high",
+      "drivers": ["Comprensión de casos de uso", "Práctica guiada", "Soporte contextual"]
+    },
+    {
+      "query": "¿Cuál es el ROI de la academia?",
+      "response": "Por cada $1 invertido en educación, se generan $8.50 en LTV incremental.",
+      "chart": "line",
+      "confidence": "high",
+      "drivers": ["Mayor adopción", "Menor churn", "Expansión de cuentas"]
+    },
+    {
+      "query": "¿Qué contenido predice mejor conversión?",
+      "response": "Usuarios que completan 'Casos de Uso Prácticos' tienen 3.1x más probabilidad de convertir.",
+      "chart": "funnel",
+      "confidence": "medium",
+      "drivers": ["Relevancia percibida", "Aplicabilidad inmediata"]
+    }
+  ]
+}

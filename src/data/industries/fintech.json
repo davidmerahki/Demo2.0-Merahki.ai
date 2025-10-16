@@ -1,0 +1,171 @@
+{
+  "id": "fintech",
+  "name": "Fintech",
+  "description": "Tecnología financiera y servicios bancarios",
+  "kpis": {
+    "before": {
+      "adoption": 28,
+      "csat": 6.2,
+      "ltv": 8500,
+      "support": 52,
+      "salesCycle": 120,
+      "ttv": 28,
+      "cvr": 1.8,
+      "activation": 22,
+      "churn": 42,
+      "ndr": 92,
+      "referrals": 5
+    },
+    "after": {
+      "adoption": 62,
+      "csat": 8.7,
+      "ltv": 13600,
+      "support": 19,
+      "salesCycle": 55,
+      "ttv": 4.2,
+      "cvr": 6.8,
+      "activation": 68,
+      "churn": 14,
+      "ndr": 115,
+      "referrals": 19
+    },
+    "ranges": {
+      "adoption": { "min": 35, "max": 45 },
+      "csat": { "min": 30, "max": 40 },
+      "ltv": { "min": 30, "max": 45 },
+      "support": { "min": -55, "max": -75 },
+      "salesCycle": { "min": -45, "max": -65 }
+    }
+  },
+  "useCases": [
+    {
+      "id": "uc1",
+      "title": "Educación en Compliance",
+      "description": "Certificar usuarios en regulaciones financieras",
+      "impact": "100% compliance"
+    },
+    {
+      "id": "uc2",
+      "title": "Onboarding Seguro",
+      "description": "Reducir fricción en KYC mediante educación",
+      "impact": "-63% abandono"
+    },
+    {
+      "id": "uc3",
+      "title": "Adopción de Features",
+      "description": "Educar sobre productos financieros complejos",
+      "impact": "+180% uso"
+    }
+  ],
+  "survivalCurve": [
+    { "week": 0, "retention": 100, "reason": null },
+    { "week": 1, "retention": 72, "reason": "Complejidad de compliance" },
+    { "week": 2, "retention": 58, "reason": "Desconfianza en seguridad" },
+    { "week": 4, "retention": 45, "reason": "No entendió beneficios" },
+    { "week": 8, "retention": 38, "reason": "Fricción en onboarding" },
+    { "week": 12, "retention": 32, "reason": "Alternativas más simples" }
+  ],
+  "funnelData": {
+    "day1": {
+      "leads": 1000,
+      "activated": 220,
+      "cvr": 1.8,
+      "ttv": 28
+    },
+    "day5": {
+      "leads": 1000,
+      "activated": 155,
+      "cvr": 1.3,
+      "ttv": 32
+    },
+    "day10": {
+      "leads": 1000,
+      "activated": 105,
+      "cvr": 0.9,
+      "ttv": 35
+    }
+  },
+  "journeyMap": {
+    "nodes": [
+      { "id": "ad", "label": "Anuncio", "type": "source" },
+      { "id": "academy", "label": "Academia Financiera", "type": "education" },
+      { "id": "route", "label": "Ruta por Producto", "type": "education" },
+      { "id": "signals", "label": "Señales de Intención", "type": "data" },
+      { "id": "scoring", "label": "Scoring NBA", "type": "intelligence" },
+      { "id": "crm", "label": "CRM Sync", "type": "integration" },
+      { "id": "sales", "label": "Sales Assist", "type": "action" },
+      { "id": "guides", "label": "In-App Guides", "type": "activation" }
+    ],
+    "edges": [
+      { "from": "ad", "to": "academy" },
+      { "from": "academy", "to": "route" },
+      { "from": "route", "to": "signals" },
+      { "from": "signals", "to": "scoring" },
+      { "from": "scoring", "to": "crm" },
+      { "from": "crm", "to": "sales" },
+      { "from": "sales", "to": "guides" }
+    ]
+  },
+  "jtbdTasks": [
+    {
+      "id": "task1",
+      "title": "Verificar identidad (KYC)",
+      "category": "compliance",
+      "estimatedTime": "8 min"
+    },
+    {
+      "id": "task2",
+      "title": "Vincular cuenta bancaria",
+      "category": "setup",
+      "estimatedTime": "5 min"
+    },
+    {
+      "id": "task3",
+      "title": "Realizar primera transacción",
+      "category": "core",
+      "estimatedTime": "3 min"
+    },
+    {
+      "id": "task4",
+      "title": "Configurar alertas de seguridad",
+      "category": "security",
+      "estimatedTime": "4 min"
+    },
+    {
+      "id": "task5",
+      "title": "Explorar productos disponibles",
+      "category": "discovery",
+      "estimatedTime": "10 min"
+    }
+  ],
+  "attributionPath": {
+    "userId": "user_demo_002",
+    "name": "Carlos Ramírez",
+    "company": "InvestCo",
+    "timeline": [
+      { "date": "2024-01-10", "event": "Descubrió vía Google Search", "type": "source" },
+      { "date": "2024-01-12", "event": "Completó curso 'Seguridad Financiera'", "type": "education" },
+      { "date": "2024-01-15", "event": "Exploró feature: Inversiones", "type": "engagement" },
+      { "date": "2024-01-18", "event": "Solicitó asesoría", "type": "conversion" },
+      { "date": "2024-01-22", "event": "Activó cuenta premium", "type": "activation" },
+      { "date": "2024-02-05", "event": "NPS: 10 - Promotor", "type": "satisfaction" },
+      { "date": "2024-02-28", "event": "Refirió 3 colegas", "type": "advocacy" }
+    ]
+  },
+  "nlqExamples": [
+    {
+      "query": "¿Qué reduce el abandono en KYC?",
+      "response": "Usuarios que completan 'Tutorial KYC Interactivo' abandonan 63% menos durante verificación.",
+      "chart": "bar",
+      "confidence": "high",
+      "drivers": ["Claridad del proceso", "Expectativas alineadas", "Soporte proactivo"]
+    },
+    {
+      "query": "¿Cuál es el impacto de educación en compliance?",
+      "response": "100% de usuarios certificados cumplen regulaciones vs 67% sin certificación.",
+      "chart": "pie",
+      "confidence": "high",
+      "drivers": ["Conocimiento regulatorio", "Confianza del usuario"]
+    }
+  ]
+}

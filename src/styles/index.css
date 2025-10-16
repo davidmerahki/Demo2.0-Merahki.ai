@@ -1,0 +1,154 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading;
+  }
+
+  /* Scrollbar personalizado Merahki.ai */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #0a0a0f;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #a855f7 0%, #ec4899 100%);
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #c084fc 0%, #f472b6 100%);
+  }
+
+  /* Selection color */
+  ::selection {
+    background-color: rgba(168, 85, 247, 0.3);
+    color: #ffffff;
+  }
+}
+
+@layer components {
+  /* Glass Morphism Card */
+  .glass-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    transition: all 0.3s ease;
+  }
+
+  .glass-card:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+
+  /* Botón Principal con Gradiente */
+  .btn-primary {
+    @apply py-3 px-6 md:py-4 md:px-8 font-semibold rounded-full;
+    background: linear-gradient(to right, #a855f7, #ec4899, #3b82f6);
+    color: white;
+    transition: all 0.3s ease;
+  }
+
+  .btn-primary:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(168, 85, 247, 0.5);
+  }
+
+  .btn-primary:focus {
+    outline: 2px solid #a855f7;
+    outline-offset: 2px;
+    ring: 2px #a855f7;
+    ring-offset: 2px;
+    ring-offset-color: #0a0a0f;
+  }
+
+  /* Botón Secundario Glass */
+  .btn-secondary {
+    @apply py-3 px-6 md:py-4 md:px-8 font-semibold rounded-full;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(8px);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+  }
+
+  .btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.3);
+  }
+
+  /* Badge/Tag */
+  .badge {
+    @apply inline-flex items-center space-x-2 px-4 py-2 rounded-full;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+}
+
+@layer utilities {
+  /* Transiciones */
+  .transition-standard {
+    transition: all 350ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+
+  .transition-merahki {
+    transition: all 450ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  /* Gradientes de Texto */
+  .text-gradient {
+    background: linear-gradient(to right, #a855f7, #ec4899, #3b82f6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .text-gradient-warm {
+    @apply bg-gradient-to-r from-warm-500 to-warm-600 bg-clip-text text-transparent;
+  }
+
+  .text-gradient-cool {
+    @apply bg-gradient-to-r from-cool-600 to-cool-800 bg-clip-text text-transparent;
+  }
+
+  /* Shimmer Effect */
+  .shimmer {
+    background: linear-gradient(
+      110deg,
+      transparent 0%,
+      transparent 40%,
+      rgba(255, 255, 255, 0.1) 50%,
+      transparent 60%,
+      transparent 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 2s linear infinite;
+  }
+
+  /* Delays de Animación */
+  .animate-delay-100 { animation-delay: 100ms; }
+  .animate-delay-200 { animation-delay: 200ms; }
+  .animate-delay-300 { animation-delay: 300ms; }
+  .animate-delay-400 { animation-delay: 400ms; }
+  .animate-delay-500 { animation-delay: 500ms; }
+
+  /* Sombras */
+  .card-shadow {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+
+  .card-shadow-lg {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  }
+}
