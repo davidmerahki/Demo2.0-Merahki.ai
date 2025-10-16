@@ -2,7 +2,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
 import { pageVariants, pageTransition } from '@utils/motion';
 import useDemoStore from '@store/useDemoStore';
-import { MessageSquare, Send, TrendingUp, Users, Target, Zap, Download, Share2, Plus } from 'lucide-react';
+import { MessageSquare, Send, TrendingUp, Users, Target, Zap, Download, Share2, Plus, RotateCcw } from 'lucide-react';
 import Badge from '@components/ui/Badge';
 import Card from '@components/ui/Card';
 import Button from '@components/ui/Button';
@@ -205,16 +205,27 @@ const Moment9 = () => {
           >
             <Card className="h-[600px] flex flex-col">
               {/* Chat Header */}
-              <div className="flex items-center gap-3 pb-4 border-b border-white/10">
-                <div className="w-10 h-10 rounded-full bg-gradient-primary flex items-center justify-center">
-                  <MessageSquare className="w-5 h-5 text-white" />
+              <div className="flex items-center justify-between pb-4 border-b border-white/10">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-gradient-primary flex items-center justify-center">
+                    <MessageSquare className="w-5 h-5 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-heading font-semibold text-foreground">
+                      Ask Merahki
+                    </h3>
+                    <p className="text-xs text-foreground/60">Asistente de insights educativos</p>
+                  </div>
                 </div>
-                <div>
-                  <h3 className="text-lg font-heading font-semibold text-foreground">
-                    Ask Merahki
-                  </h3>
-                  <p className="text-xs text-foreground/60">Asistente de insights educativos</p>
-                </div>
+                {messages.length > 0 && (
+                  <button
+                    onClick={() => setMessages([])}
+                    className="flex items-center gap-2 px-3 py-2 text-xs font-semibold bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 rounded-lg transition-all"
+                  >
+                    <RotateCcw className="w-3 h-3" />
+                    Nueva Conversación
+                  </button>
+                )}
               </div>
 
               {/* Messages Area */}
@@ -242,13 +253,14 @@ const Moment9 = () => {
                   </div>
                 )}
 
-                <AnimatePresence>
+                <AnimatePresence mode="popLayout">
                   {messages.map((message, index) => (
                     <motion.div
                       key={index}
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -10 }}
+                      transition={{ duration: 0.3 }}
                       className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}
                     >
                       <div className={`
@@ -337,6 +349,29 @@ const Moment9 = () => {
                           className="w-2 h-2 rounded-full bg-foreground/40"
                         />
                       </div>
+                    </div>
+                  </motion.div>
+                )}
+                
+                {/* Preguntas sugeridas después de respuesta */}
+                {messages.length > 0 && !isTyping && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.5 }}
+                    className="pt-4 border-t border-white/10"
+                  >
+                    <p className="text-xs text-foreground/60 mb-3">Preguntas relacionadas:</p>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                      {suggestedQuestions.slice(0, 4).map((question, index) => (
+                        <button
+                          key={index}
+                          onClick={() => handleSendMessage(question)}
+                          className="text-left px-3 py-2 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-primary-500/50 rounded-lg text-xs text-foreground/80 transition-all"
+                        >
+                          {question}
+                        </button>
+                      ))}
                     </div>
                   </motion.div>
                 )}
