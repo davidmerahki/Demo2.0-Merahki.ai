@@ -66,7 +66,7 @@ const BusinessHUD = () => {
       initial={{ x: 20, opacity: 0 }}
       animate={{ x: 0, opacity: 1 }}
       transition={{ delay: 0.2 }}
-      className="fixed top-24 right-6 z-40 w-80"
+      className="hidden lg:block fixed top-24 right-6 z-40 w-80"
     >
       <div className="glass-card p-5">
         {/* Header */}
