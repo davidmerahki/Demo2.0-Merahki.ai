@@ -35,6 +35,7 @@ const Moment5 = () => {
       setShowAha(true);
       setTimeout(() => setShowAha(false), 3000);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [completedJTBD]);
 
   const toggleJTBD = (id) => {

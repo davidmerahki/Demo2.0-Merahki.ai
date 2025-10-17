@@ -1,4 +1,4 @@
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { ChevronLeft, ChevronRight, Presentation, User } from 'lucide-react';
 import useDemoStore from '@store/useDemoStore';
 import Toggle from '@components/ui/Toggle';

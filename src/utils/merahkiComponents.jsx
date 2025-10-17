@@ -1,5 +1,4 @@
-import { motion } from 'framer-motion';
-
+/* eslint-disable react-refresh/only-export-components */
 /**
  * Configuraciones de animación estándar de Merahki.ai
  */

@@ -32,7 +32,7 @@ const Slider = ({
           background: `linear-gradient(to right, #FF9633 0%, #FF9633 ${((value - min) / (max - min)) * 100}%, #D9E2EC ${((value - min) / (max - min)) * 100}%, #D9E2EC 100%)`
         }}
       />
-      <style jsx>{`
+      <style>{`
         .slider-thumb::-webkit-slider-thumb {
           appearance: none;
           width: 20px;

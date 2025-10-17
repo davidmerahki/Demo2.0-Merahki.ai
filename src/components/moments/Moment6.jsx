@@ -11,8 +11,8 @@ import { momentsCopy } from '@data/momentsCopy';
 const Moment6 = () => {
   const { direction } = useDemoStore();
   const copy = momentsCopy.moment6;
-  const [selectedUser, setSelectedUser] = useState('user1');
   const [showAttribution, setShowAttribution] = useState(true);
+  const selectedUser = 'user1'; // Usuario por defecto
 
   // Timeline de usuario con atribución educativa
   const userTimeline = {
