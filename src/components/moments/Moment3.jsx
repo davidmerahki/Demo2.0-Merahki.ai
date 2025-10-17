@@ -204,7 +204,8 @@ const Moment3 = () => {
                 {kpis.map((kpi) => {
                   const Icon = kpi.icon;
                   const value = currentData.before[kpi.key];
-                  const displayValue = kpi.format ? kpi.format(value) : value.toFixed(kpi.decimals || 0);
+                  // Mostrar "X" para Customer LTV
+                  const displayValue = kpi.key === 'ltv' ? 'X' : (kpi.format ? kpi.format(value) : value.toFixed(kpi.decimals || 0));
                   
                   return (
                     <div key={kpi.key} className="flex items-center justify-between p-3 bg-white/5 rounded-lg">
@@ -215,7 +216,7 @@ const Moment3 = () => {
                         <span className="text-sm text-foreground/70">{kpi.label}</span>
                       </div>
                       <span className="text-lg font-bold text-foreground">
-                        {kpi.prefix}{displayValue}{kpi.suffix}
+                        {kpi.key === 'ltv' ? displayValue : `${kpi.prefix || ''}${displayValue}${kpi.suffix || ''}`}
                       </span>
                     </div>
                   );
@@ -233,7 +234,7 @@ const Moment3 = () => {
             <Card glass={false} hover={false} className="bg-success-500/5 border-success-500/20">
               <div className="text-center mb-6">
                 <h3 className="text-2xl font-heading font-bold text-success-400 mb-2">
-                  Con ELG
+                  Con Education-Led Growth
                 </h3>
                 <p className="text-sm text-foreground/60">Impacto medido</p>
               </div>
@@ -244,9 +245,16 @@ const Moment3 = () => {
                   const beforeValue = currentData.before[kpi.key];
                   const afterValue = currentData.after[kpi.key];
                   const delta = calculateDelta(beforeValue, afterValue);
-                  const adjustedAfter = beforeValue + (afterValue - beforeValue) * (educationIntensity / 100);
-                  const displayValue = kpi.format ? kpi.format(adjustedAfter) : adjustedAfter.toFixed(kpi.decimals || 0);
-                  const isPositive = kpi.inverse ? delta < 0 : delta > 0;
+                  
+                  // Determinar el valor a mostrar según el KPI
+                  let displayValue;
+                  if (kpi.key === 'ltv') {
+                    displayValue = '6x';
+                  } else if (kpi.key === 'support') {
+                    displayValue = '-20%';
+                  } else {
+                    displayValue = `${delta > 0 ? '+' : ''}${Math.abs(delta).toFixed(0)}%`;
+                  }
                   
                   return (
                     <div key={kpi.key} className="flex items-center justify-between p-3 bg-white/5 rounded-lg">
@@ -257,16 +265,9 @@ const Moment3 = () => {
                         <span className="text-sm text-foreground/70">{kpi.label}</span>
                       </div>
                       <div className="flex items-center gap-2">
-                        <span className="text-lg font-bold text-foreground">
-                          {kpi.prefix}{displayValue}{kpi.suffix}
+                        <span className="text-lg font-bold text-success-400">
+                          {displayValue}
                         </span>
-                        <Badge 
-                          variant={isPositive ? 'success' : 'danger'} 
-                          trend={isPositive ? 'up' : 'down'}
-                          className="text-xs"
-                        >
-                          {delta > 0 ? '+' : ''}{Math.abs(delta).toFixed(0)}%
-                        </Badge>
                       </div>
                     </div>
                   );
