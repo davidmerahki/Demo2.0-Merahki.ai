@@ -1,9 +1,13 @@
+import { useState } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import useDemoStore from '@store/useDemoStore';
 import { cn } from '@utils/cn';
+import MainNav from '@components/core/MainNav';
 import DemoController from '@components/core/DemoController';
 import BusinessHUD from '@components/core/BusinessHUD';
 import LoopCanvas from '@components/core/LoopCanvas';
+import GrowthLanding from '@components/pages/GrowthLanding';
+import VirtualizationLanding from '@components/pages/VirtualizationLanding';
 import Moment1 from '@components/moments/Moment1';
 import Moment2 from '@components/moments/Moment2';
 import Moment3 from '@components/moments/Moment3';
@@ -16,6 +20,7 @@ import Moment9 from '@components/moments/Moment9';
 
 function App() {
   const { currentMoment } = useDemoStore();
+  const [currentPage, setCurrentPage] = useState('demo');
 
   const moments = {
     1: Moment1,
@@ -31,6 +36,26 @@ function App() {
 
   const CurrentMoment = moments[currentMoment];
 
+  // Renderizar landing pages
+  if (currentPage === 'growth') {
+    return (
+      <>
+        <MainNav currentPage={currentPage} onNavigate={setCurrentPage} />
+        <GrowthLanding />
+      </>
+    );
+  }
+
+  if (currentPage === 'virtualization') {
+    return (
+      <>
+        <MainNav currentPage={currentPage} onNavigate={setCurrentPage} />
+        <VirtualizationLanding />
+      </>
+    );
+  }
+
+  // Renderizar demo interactivo
   return (
     <div className="min-h-screen bg-background relative overflow-hidden">
       {/* Efectos de fondo globales */}
@@ -40,8 +65,13 @@ function App() {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-accent-500/5 rounded-full blur-3xl animate-pulse-slow animate-delay-500" />
       </div>
 
-      {/* Navigation & Controls */}
-      <DemoController />
+      {/* Main Navigation */}
+      <MainNav currentPage={currentPage} onNavigate={setCurrentPage} />
+
+      {/* Demo Navigation & Controls */}
+      <div className="mt-16 sm:mt-20">
+        <DemoController />
+      </div>
 
       {/* Business KPIs HUD */}
       <BusinessHUD />
