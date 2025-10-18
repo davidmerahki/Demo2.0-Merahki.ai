@@ -32,8 +32,63 @@ const DemoController = () => {
       animate={{ y: 0, opacity: 1 }}
       className="fixed top-0 left-0 right-0 z-50 glass-card border-b border-white/10"
     >
-      <div className="max-w-7xl mx-auto px-6 py-4">
-        <div className="flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 py-2 sm:py-4">
+        {/* Mobile Layout */}
+        <div className="lg:hidden">
+          <div className="flex items-center justify-between mb-2">
+            {/* Logo compacto */}
+            <h1 className="text-lg font-heading font-bold text-gradient">
+              Merahki.ai
+            </h1>
+            
+            {/* Navegación móvil */}
+            <div className="flex items-center gap-2">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={prevMoment}
+                disabled={currentMoment === 1}
+                className="p-1.5"
+              >
+                <ChevronLeft className="w-4 h-4" />
+              </Button>
+              
+              <div className="flex flex-col items-center min-w-[60px]">
+                <span className="text-xs text-foreground/60 font-medium">
+                  {currentMoment}/9
+                </span>
+              </div>
+
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={nextMoment}
+                disabled={currentMoment === 9}
+                className="p-1.5"
+              >
+                <ChevronRight className="w-4 h-4" />
+              </Button>
+            </div>
+          </div>
+          
+          {/* Progress bar móvil */}
+          <div className="w-full h-1.5 bg-white/10 rounded-full overflow-hidden mb-1">
+            <motion.div
+              className="h-full bg-gradient-primary"
+              initial={{ width: 0 }}
+              animate={{ width: `${(currentMoment / 9) * 100}%` }}
+              transition={{ duration: 0.5, ease: [0.22, 0.61, 0.36, 1] }}
+            />
+          </div>
+          
+          {/* Título del momento - móvil */}
+          <p className="text-xs text-foreground/80 font-medium text-center truncate">
+            {momentTitles[currentMoment - 1]}
+          </p>
+        </div>
+
+        {/* Desktop Layout */}
+        <div className="hidden lg:flex items-center justify-between">
           {/* Logo y Título */}
           <div className="flex items-center gap-4">
             <h1 className="text-2xl font-heading font-bold text-gradient">
@@ -50,7 +105,7 @@ const DemoController = () => {
             </div>
           </div>
 
-          {/* Controles Centrales */}
+          {/* Controles Centrales - Desktop */}
           <div className="flex items-center gap-4">
             {/* Navegación */}
             <div className="flex items-center gap-2">

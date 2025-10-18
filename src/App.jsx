@@ -48,8 +48,11 @@ function App() {
 
       {/* Main Content Area */}
       <main className={cn(
-        "relative z-10 pt-24 px-6 transition-all duration-300",
-        currentMoment >= 4 && currentMoment <= 9 ? "pb-40" : "pb-32"
+        "relative z-10 transition-all duration-300",
+        "pt-20 sm:pt-24 px-3 sm:px-6",
+        currentMoment >= 4 && currentMoment <= 9 
+          ? "pb-32 sm:pb-40" 
+          : "pb-16 sm:pb-32"
       )}>
         <div className="max-w-7xl mx-auto">
           <AnimatePresence mode="wait">

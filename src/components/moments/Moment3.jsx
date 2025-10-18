@@ -136,25 +136,25 @@ const Moment3 = () => {
       <GradientOverlay direction="to-b" opacity="default" />
 
       {/* Contenido principal */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="relative z-10 max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-8">
         {/* Header */}
         <motion.div
-          className="text-center mb-12"
+          className="text-center mb-6 sm:mb-12"
           {...merahkiAnimations.fadeInUp}
         >
-          <Badge gradient className="mb-6">
+          <Badge gradient className="mb-3 sm:mb-6">
             Momento 3
           </Badge>
 
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold text-gradient mb-4">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-heading font-bold text-gradient mb-3 sm:mb-4 px-2">
             Qué Cambia con Customer Education
           </h2>
           
-          <p className="text-base md:text-lg text-foreground/70 leading-relaxed max-w-3xl mx-auto mb-4">
+          <p className="text-sm sm:text-base md:text-lg text-foreground/70 leading-relaxed max-w-3xl mx-auto mb-2 sm:mb-4 px-2">
             Si buscas aumentar adquisición, retención, LTV y usuarios que permanecen después de 12 semanas, necesitas estrategias de Customer Education.
           </p>
           
-          <p className="text-sm md:text-base text-foreground/60 max-w-2xl mx-auto">
+          <p className="text-xs sm:text-sm md:text-base text-foreground/60 max-w-2xl mx-auto px-2">
             Educar impacta Growth, Marketing, Ventas y CX. Reduce costos de soporte, acorta el ciclo de ventas y potencia el cross-sell.
           </p>
         </motion.div>
@@ -164,14 +164,14 @@ const Moment3 = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2, ease: merahkiAnimations.easing }}
-          className="flex justify-center gap-3 mb-8"
+          className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-4 sm:mb-8 px-2"
         >
           {Object.entries(industryData).map(([key, data]) => (
             <button
               key={key}
               onClick={() => setSelectedIndustry(key)}
               className={`
-                px-6 py-3 rounded-full font-semibold transition-all duration-300
+                px-3 py-2 sm:px-6 sm:py-3 rounded-full text-xs sm:text-base font-semibold transition-all duration-300
                 ${
                   selectedIndustry === key
                     ? 'bg-gradient-primary text-white shadow-glow-md'
@@ -185,22 +185,22 @@ const Moment3 = () => {
         </motion.div>
 
         {/* Split Screen Antes/Después */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 mb-4 sm:mb-8">
           {/* ANTES - Lado Izquierdo (Pasado) */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.3, ease: merahkiAnimations.easing }}
           >
-            <Card glass={false} hover={false} className="bg-danger-500/5 border-danger-500/20">
-              <div className="text-center mb-6">
-                <h3 className="text-2xl font-heading font-bold text-danger-400 mb-2">
+            <Card glass={false} hover={false} className="bg-danger-500/5 border-danger-500/20 p-4 sm:p-6">
+              <div className="text-center mb-4 sm:mb-6">
+                <h3 className="text-lg sm:text-2xl font-heading font-bold text-danger-400 mb-1 sm:mb-2">
                   Sin Educación
                 </h3>
-                <p className="text-sm text-foreground/60">Baseline actual</p>
+                <p className="text-xs sm:text-sm text-foreground/60">Baseline actual</p>
               </div>
               
-              <div className="space-y-4">
+              <div className="space-y-2 sm:space-y-4">
                 {kpis.map((kpi) => {
                   const Icon = kpi.icon;
                   const value = currentData.before[kpi.key];
@@ -208,14 +208,14 @@ const Moment3 = () => {
                   const displayValue = kpi.key === 'ltv' ? 'X' : (kpi.format ? kpi.format(value) : value.toFixed(kpi.decimals || 0));
                   
                   return (
-                    <div key={kpi.key} className="flex items-center justify-between p-3 bg-white/5 rounded-lg">
-                      <div className="flex items-center gap-3">
-                        <div className="p-2 rounded-lg bg-danger-500/20">
-                          <Icon className="w-4 h-4 text-danger-400" />
+                    <div key={kpi.key} className="flex items-center justify-between p-2 sm:p-3 bg-white/5 rounded-lg">
+                      <div className="flex items-center gap-2 sm:gap-3">
+                        <div className="p-1.5 sm:p-2 rounded-lg bg-danger-500/20">
+                          <Icon className="w-3 h-3 sm:w-4 sm:h-4 text-danger-400" />
                         </div>
-                        <span className="text-sm text-foreground/70">{kpi.label}</span>
+                        <span className="text-xs sm:text-sm text-foreground/70">{kpi.label}</span>
                       </div>
-                      <span className="text-lg font-bold text-foreground">
+                      <span className="text-sm sm:text-lg font-bold text-foreground">
                         {kpi.key === 'ltv' ? displayValue : `${kpi.prefix || ''}${displayValue}${kpi.suffix || ''}`}
                       </span>
                     </div>
@@ -231,15 +231,15 @@ const Moment3 = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.4, ease: merahkiAnimations.easing }}
           >
-            <Card glass={false} hover={false} className="bg-success-500/5 border-success-500/20">
-              <div className="text-center mb-6">
-                <h3 className="text-2xl font-heading font-bold text-success-400 mb-2">
+            <Card glass={false} hover={false} className="bg-success-500/5 border-success-500/20 p-4 sm:p-6">
+              <div className="text-center mb-4 sm:mb-6">
+                <h3 className="text-lg sm:text-2xl font-heading font-bold text-success-400 mb-1 sm:mb-2">
                   Con Education-Led Growth
                 </h3>
-                <p className="text-sm text-foreground/60">Impacto medido</p>
+                <p className="text-xs sm:text-sm text-foreground/60">Impacto medido</p>
               </div>
               
-              <div className="space-y-4">
+              <div className="space-y-2 sm:space-y-4">
                 {kpis.map((kpi) => {
                   const Icon = kpi.icon;
                   const beforeValue = currentData.before[kpi.key];
@@ -257,15 +257,15 @@ const Moment3 = () => {
                   }
                   
                   return (
-                    <div key={kpi.key} className="flex items-center justify-between p-3 bg-white/5 rounded-lg">
-                      <div className="flex items-center gap-3">
-                        <div className="p-2 rounded-lg bg-success-500/20">
-                          <Icon className="w-4 h-4 text-success-400" />
+                    <div key={kpi.key} className="flex items-center justify-between p-2 sm:p-3 bg-white/5 rounded-lg">
+                      <div className="flex items-center gap-2 sm:gap-3">
+                        <div className="p-1.5 sm:p-2 rounded-lg bg-success-500/20">
+                          <Icon className="w-3 h-3 sm:w-4 sm:h-4 text-success-400" />
                         </div>
-                        <span className="text-sm text-foreground/70">{kpi.label}</span>
+                        <span className="text-xs sm:text-sm text-foreground/70">{kpi.label}</span>
                       </div>
-                      <div className="flex items-center gap-2">
-                        <span className="text-lg font-bold text-success-400">
+                      <div className="flex items-center gap-1 sm:gap-2">
+                        <span className="text-sm sm:text-lg font-bold text-success-400">
                           {displayValue}
                         </span>
                       </div>
@@ -282,13 +282,13 @@ const Moment3 = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.5, ease: merahkiAnimations.easing }}
-          className="glass-card p-6 max-w-2xl mx-auto"
+          className="glass-card p-4 sm:p-6 max-w-2xl mx-auto"
         >
-          <div className="flex items-center justify-between mb-4">
-            <label className="text-sm font-semibold text-foreground/80">
+          <div className="flex items-center justify-between mb-3 sm:mb-4">
+            <label className="text-xs sm:text-sm font-semibold text-foreground/80">
               Intensidad de Educación
             </label>
-            <span className="text-lg font-bold text-gradient">
+            <span className="text-base sm:text-lg font-bold text-gradient">
               {educationIntensity}%
             </span>
           </div>
@@ -316,12 +316,12 @@ const Moment3 = () => {
               [&::-moz-range-thumb]:cursor-pointer"
           />
           
-          <div className="flex justify-between mt-2 text-xs text-foreground/50">
+          <div className="flex justify-between mt-2 text-[10px] sm:text-xs text-foreground/50">
             <span>Sin educación</span>
             <span>Programa completo</span>
           </div>
           
-          <p className="text-xs text-center text-foreground/50 mt-4 italic">
+          <p className="text-[10px] sm:text-xs text-center text-foreground/50 mt-3 sm:mt-4 italic">
             Rangos de impacto basados en implementaciones reales
           </p>
         </motion.div>
@@ -331,9 +331,9 @@ const Moment3 = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.6, ease: merahkiAnimations.easing }}
-          className="mt-8 text-center"
+          className="mt-4 sm:mt-8 text-center px-2"
         >
-          <p className="text-sm md:text-base text-foreground/80 max-w-3xl mx-auto">
+          <p className="text-xs sm:text-sm md:text-base text-foreground/80 max-w-3xl mx-auto">
             <span className="font-semibold text-gradient">Impacto medido:</span> +30-40% adopción de funcionalidades, +20-30% CSAT, +25-35% LTV, -10-20% costos de soporte.
           </p>
         </motion.div>
