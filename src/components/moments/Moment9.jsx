@@ -6,6 +6,7 @@ import { MessageSquare, Send, TrendingUp, Users, Target, Zap, Download, Share2, 
 import Badge from '@components/ui/Badge';
 import Card from '@components/ui/Card';
 import Button from '@components/ui/Button';
+import ScheduleButton from '@components/ui/ScheduleButton';
 import { AnimatedBlob, GradientOverlay, merahkiAnimations } from '@utils/merahkiComponents';
 import { momentsCopy } from '@data/momentsCopy';
 
@@ -442,10 +443,15 @@ const Moment9 = () => {
               </div>
             </Card>
           </motion.div>
-        </div>
+        </motion.div>
+
+        {/* CTA - Agenda una Reunión */}
+        <ScheduleButton delay={0.7} className="mt-8" />
       </div>
     </motion.div>
   );
 };
+
+import ScheduleButton from './ScheduleButton';
 
 export default Moment9;
