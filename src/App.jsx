@@ -4,6 +4,7 @@ import { cn } from '@utils/cn';
 import DemoController from '@components/core/DemoController';
 import BusinessHUD from '@components/core/BusinessHUD';
 import LoopCanvas from '@components/core/LoopCanvas';
+import Footer from '@components/core/Footer';
 import Moment1 from '@components/moments/Moment1';
 import Moment2 from '@components/moments/Moment2';
 import Moment3 from '@components/moments/Moment3';
@@ -63,6 +64,9 @@ function App() {
 
       {/* ELG Loop Diagram */}
       <LoopCanvas />
+
+      {/* Footer con enlaces */}
+      <Footer />
     </div>
   );
 }
