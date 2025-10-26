@@ -5,6 +5,7 @@ import useDemoStore from '@store/useDemoStore';
 import { ArrowRight, Megaphone, GraduationCap, Target, BarChart3, Database, Users, Smartphone, CheckCircle2 } from 'lucide-react';
 import Badge from '@components/ui/Badge';
 import Card from '@components/ui/Card';
+import ScheduleButton from '@components/ui/ScheduleButton';
 import { AnimatedBlob, GradientOverlay, merahkiAnimations } from '@utils/merahkiComponents';
 import { momentsCopy } from '@data/momentsCopy';
 
@@ -215,6 +216,9 @@ const Moment4 = () => {
             </ul>
           </div>
         </motion.div>
+
+        {/* CTA - Agenda una Reunión */}
+        <ScheduleButton delay={0.7} className="mt-8" />
       </div>
     </motion.div>
   );

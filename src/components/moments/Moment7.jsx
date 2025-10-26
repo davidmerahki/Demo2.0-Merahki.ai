@@ -6,6 +6,7 @@ import { Rocket, CheckCircle2, Calendar, Zap, ArrowRight, Sparkles, Search, Tren
 import Badge from '@components/ui/Badge';
 import Card from '@components/ui/Card';
 import Button from '@components/ui/Button';
+import ScheduleButton from '@components/ui/ScheduleButton';
 import { AnimatedBlob, GradientOverlay, merahkiAnimations } from '@utils/merahkiComponents';
 import { momentsCopy } from '@data/momentsCopy';
 
@@ -385,6 +386,9 @@ const Moment7 = () => {
             </div>
           </Card>
         </motion.div>
+
+        {/* CTA - Agenda una Reunión */}
+        <ScheduleButton delay={0.8} className="mt-8" />
       </div>
     </motion.div>
   );

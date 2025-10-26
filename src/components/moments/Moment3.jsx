@@ -5,6 +5,7 @@ import useDemoStore from '@store/useDemoStore';
 import { Users, Heart, DollarSign, HeadphonesIcon, Clock } from 'lucide-react';
 import Badge from '@components/ui/Badge';
 import Card from '@components/ui/Card';
+import ScheduleButton from '@components/ui/ScheduleButton';
 import { AnimatedBlob, GradientOverlay, merahkiAnimations } from '@utils/merahkiComponents';
 
 const Moment3 = () => {
@@ -337,6 +338,9 @@ const Moment3 = () => {
             <span className="font-semibold text-gradient">Impacto medido:</span> +30-40% adopción de funcionalidades, +20-30% CSAT, +25-35% LTV, -10-20% costos de soporte.
           </p>
         </motion.div>
+
+        {/* CTA - Agenda una Reunión */}
+        <ScheduleButton delay={0.7} className="mt-8" />
       </div>
     </motion.div>
   );
