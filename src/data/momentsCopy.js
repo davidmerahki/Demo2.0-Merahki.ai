@@ -21,7 +21,7 @@ export const momentsCopy = {
     badge: 'Momento 2',
     title: 'Por Qué Se Van',
     subtitle: 'El problema no es tráfico, es aprendizaje aplicado',
-    description: 'Solo 1 de cada 10 usuarios permanece activo después de 12 semanas. El 95% de los productos fracasan porque los usuarios no entienden cómo usar la solución para su caso de uso específico.',
+    description: 'El 55% de usuarios que abandonan tu producto lo hacen porque NUNCA ENTENDIÓ CÓMO USARLO O PARA QUÉ ERA. Además, según Colombia Edtech, los tutoriales y documentación no son suficientes pues en el 67% de los casos el orden de estos contenidos no corresponden a los casos de uso específicos del usuario.',
     insight: '9 de cada 10 leads, atraídos por tus increíbles ads, se irán porque no entienden cómo utilizar tu solución. Sí, tienes documentación y tutoriales; ese es el problema: creer que tirar links resuelve la brecha de entendimiento.',
     kpis: ['% Aha moment ≤7 días', '% Feature adoption clave', 'DAU/WAU a 12 semanas'],
     visual: 'Curva de supervivencia 12 semanas + Link dumping vs Learning',
