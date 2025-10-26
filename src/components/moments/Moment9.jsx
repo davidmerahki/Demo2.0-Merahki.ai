@@ -443,7 +443,7 @@ const Moment9 = () => {
               </div>
             </Card>
           </motion.div>
-        </motion.div>
+        </div>
 
         {/* CTA - Agenda una Reunión */}
         <ScheduleButton delay={0.7} className="mt-8" />
