@@ -452,6 +452,4 @@ const Moment9 = () => {
   );
 };
 
-import ScheduleButton from './ScheduleButton';
-
 export default Moment9;
