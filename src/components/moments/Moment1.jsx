@@ -10,26 +10,28 @@ import { momentsCopy } from '@data/momentsCopy';
 
 const Moment1 = () => {
   const { direction } = useDemoStore();
-  const [currentDay, setCurrentDay] = useState(1);
+  const [currentWeek, setCurrentWeek] = useState(1);
   const [isPlaying, setIsPlaying] = useState(false);
   const [hasAutoPlayed, setHasAutoPlayed] = useState(false);
   const copy = momentsCopy.moment1;
 
-  // Datos granulares por cada día (1-10)
+  // Datos granulares por cada semana (1-12)
   const activationData = {
     1: { active: 100, churned: 0, ctr: 3.2, cvr: 2.1, ttv: 14, users: 1000 },
-    2: { active: 78, churned: 22, ctr: 3.1, cvr: 2.0, ttv: 14, users: 780 },
-    3: { active: 58, churned: 42, ctr: 2.9, cvr: 1.9, ttv: 14, users: 580 },
-    4: { active: 42, churned: 58, ctr: 2.7, cvr: 1.8, ttv: 14, users: 420 },
-    5: { active: 30, churned: 70, ctr: 2.5, cvr: 1.7, ttv: 14, users: 300 },
-    6: { active: 22, churned: 78, ctr: 2.3, cvr: 1.6, ttv: 14, users: 220 },
-    7: { active: 16, churned: 84, ctr: 2.1, cvr: 1.5, ttv: 14, users: 160 },
-    8: { active: 13, churned: 87, ctr: 2.0, cvr: 1.4, ttv: 14, users: 130 },
-    9: { active: 11, churned: 89, ctr: 1.9, cvr: 1.3, ttv: 14, users: 110 },
-    10: { active: 10, churned: 90, ctr: 1.8, cvr: 1.2, ttv: 14, users: 100 }
+    2: { active: 75, churned: 25, ctr: 3.0, cvr: 2.0, ttv: 14, users: 750 },
+    3: { active: 58, churned: 42, ctr: 2.8, cvr: 1.9, ttv: 14, users: 580 },
+    4: { active: 45, churned: 55, ctr: 2.6, cvr: 1.8, ttv: 14, users: 450 },
+    5: { active: 35, churned: 65, ctr: 2.4, cvr: 1.7, ttv: 14, users: 350 },
+    6: { active: 28, churned: 72, ctr: 2.3, cvr: 1.6, ttv: 14, users: 280 },
+    7: { active: 22, churned: 78, ctr: 2.2, cvr: 1.5, ttv: 14, users: 220 },
+    8: { active: 18, churned: 82, ctr: 2.1, cvr: 1.4, ttv: 14, users: 180 },
+    9: { active: 15, churned: 85, ctr: 2.0, cvr: 1.3, ttv: 14, users: 150 },
+    10: { active: 12, churned: 88, ctr: 1.9, cvr: 1.2, ttv: 14, users: 120 },
+    11: { active: 11, churned: 89, ctr: 1.8, cvr: 1.2, ttv: 14, users: 110 },
+    12: { active: 10, churned: 90, ctr: 1.8, cvr: 1.1, ttv: 14, users: 100 }
   };
 
-  const currentData = activationData[currentDay];
+  const currentData = activationData[currentWeek];
 
   // Auto-play inicial
   useEffect(() => {
@@ -44,19 +46,19 @@ const Moment1 = () => {
 
   // Animación de auto-play (cada 2 segundos)
   useEffect(() => {
-    if (isPlaying && currentDay < 10) {
+    if (isPlaying && currentWeek < 12) {
       const timer = setTimeout(() => {
-        setCurrentDay(prev => prev + 1);
+        setCurrentWeek(prev => prev + 1);
       }, 2000);
       return () => clearTimeout(timer);
-    } else if (currentDay >= 10) {
+    } else if (currentWeek >= 12) {
       setIsPlaying(false);
     }
-  }, [isPlaying, currentDay]);
+  }, [isPlaying, currentWeek]);
 
   const handlePlayPause = () => {
-    if (currentDay >= 10) {
-      setCurrentDay(1);
+    if (currentWeek >= 12) {
+      setCurrentWeek(1);
       setIsPlaying(true);
     } else {
       setIsPlaying(!isPlaying);
@@ -64,7 +66,7 @@ const Moment1 = () => {
   };
 
   const handleReset = () => {
-    setCurrentDay(1);
+    setCurrentWeek(1);
     setIsPlaying(false);
   };
 
@@ -120,7 +122,7 @@ const Moment1 = () => {
           <div className="flex items-center justify-between mb-6">
             <div>
               <h3 className="text-lg font-heading font-semibold text-foreground mb-1">
-                Día {currentDay} de 10
+                Semana {currentWeek} de 12
               </h3>
               <p className="text-xs text-foreground/60">
                 {currentData.users} usuarios de 1,000 iniciales
@@ -270,11 +272,11 @@ const Moment1 = () => {
             <input
               type="range"
               min="1"
-              max="10"
+              max="12"
               step="1"
-              value={currentDay}
+              value={currentWeek}
               onChange={(e) => {
-                setCurrentDay(Number(e.target.value));
+                setCurrentWeek(Number(e.target.value));
                 setIsPlaying(false);
               }}
               className="w-full h-3 bg-white/10 rounded-full appearance-none cursor-pointer
@@ -293,9 +295,9 @@ const Moment1 = () => {
             />
             
             <div className="flex justify-between mt-2 text-xs text-foreground/50">
-              <span>Día 1 (100%)</span>
-              <span>Día 5 (30%)</span>
-              <span>Día 10 (10%)</span>
+              <span>Semana 1 (100%)</span>
+              <span>Semana 6 (28%)</span>
+              <span>Semana 12 (10%)</span>
             </div>
           </div>
           
@@ -320,18 +322,18 @@ const Moment1 = () => {
           {/* Mensaje contextual */}
           <AnimatePresence mode="wait">
             <motion.div
-              key={currentDay}
+              key={currentWeek}
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
               className="mt-4 text-center"
             >
               <p className="text-sm text-foreground/70">
-                {currentDay === 1 && "🎯 Inicio: Todos los usuarios están activos"}
-                {currentDay >= 2 && currentDay <= 3 && "⚠️ Primeros abandonos: Sin onboarding claro"}
-                {currentDay >= 4 && currentDay <= 6 && "🚨 Fuga acelerada: No encuentran valor"}
-                {currentDay >= 7 && currentDay <= 9 && "💔 Pérdida crítica: Solo los más persistentes quedan"}
-                {currentDay === 10 && "☠️ Resultado: 90% de churn en 10 días"}
+                {currentWeek === 1 && "🎯 Inicio: Todos los usuarios están activos"}
+                {currentWeek >= 2 && currentWeek <= 4 && "⚠️ Primeras semanas: Sin onboarding claro"}
+                {currentWeek >= 5 && currentWeek <= 8 && "🚨 Fuga acelerada: No encuentran valor"}
+                {currentWeek >= 9 && currentWeek <= 11 && "💔 Pérdida crítica: Solo los más persistentes quedan"}
+                {currentWeek === 12 && "☠️ Resultado: 90% de churn en 12 semanas"}
               </p>
             </motion.div>
           </AnimatePresence>
@@ -348,7 +350,7 @@ const Moment1 = () => {
           />
           <StatCard
             icon={Users}
-            label="Activación Día 1-10"
+            label="Activación Semana 1-12"
             value={currentData.active}
             suffix="%"
             trend="down"
