@@ -37,9 +37,16 @@ const DemoController = () => {
         <div className="lg:hidden">
           <div className="flex items-center justify-between mb-2">
             {/* Logo compacto */}
-            <h1 className="text-lg font-heading font-bold text-gradient">
-              Merahki.ai
-            </h1>
+            <a 
+              href="https://merahki.ai/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="hover:opacity-80 transition-opacity duration-300"
+            >
+              <h1 className="text-lg font-heading font-bold text-gradient">
+                Merahki.ai
+              </h1>
+            </a>
             
             {/* Navegación móvil */}
             <div className="flex items-center gap-2">
@@ -91,9 +98,16 @@ const DemoController = () => {
         <div className="hidden lg:flex items-center justify-between">
           {/* Logo y Título */}
           <div className="flex items-center gap-4">
-            <h1 className="text-2xl font-heading font-bold text-gradient">
-              Merahki.ai
-            </h1>
+            <a 
+              href="https://merahki.ai/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="hover:opacity-80 transition-opacity duration-300"
+            >
+              <h1 className="text-2xl font-heading font-bold text-gradient">
+                Merahki.ai
+              </h1>
+            </a>
             <div className="h-6 w-px bg-gradient-to-b from-transparent via-foreground/20 to-transparent" />
             <div className="flex flex-col">
               <span className="text-xs text-foreground/60 font-medium">
