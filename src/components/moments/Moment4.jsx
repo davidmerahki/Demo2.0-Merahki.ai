@@ -2,16 +2,20 @@ import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { pageVariants, pageTransition } from '@utils/motion';
 import useDemoStore from '@store/useDemoStore';
-import { ArrowRight, Megaphone, GraduationCap, Target, BarChart3, Database, Users, Smartphone, CheckCircle2 } from 'lucide-react';
+import { Megaphone, GraduationCap, Target, BarChart3, Database, Users, Smartphone, CheckCircle2, Image, Play } from 'lucide-react';
 import Badge from '@components/ui/Badge';
 import Card from '@components/ui/Card';
 import ScheduleButton from '@components/ui/ScheduleButton';
+import ExamplesGallery from '@components/ui/ExamplesGallery';
+import VideoModal from '@components/ui/VideoModal';
 import { AnimatedBlob, GradientOverlay, merahkiAnimations } from '@utils/merahkiComponents';
 import { momentsCopy } from '@data/momentsCopy';
 
 const Moment4 = () => {
   const { direction } = useDemoStore();
   const [activeNode, setActiveNode] = useState(null);
+  const [isGalleryOpen, setIsGalleryOpen] = useState(false);
+  const [isVideoOpen, setIsVideoOpen] = useState(false);
   const copy = momentsCopy.moment4;
 
   // Nodos del journey ELG
@@ -90,16 +94,40 @@ const Moment4 = () => {
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: 0.3 + index * 0.1, duration: 0.3 }}
-                  onClick={() => setActiveNode(isActive ? null : node.id)}
+                  onClick={() => {
+                    if (node.id === 1) {
+                      // Si es el nodo "Anuncio", abrir la galería
+                      setIsGalleryOpen(true);
+                    } else if (node.id === 2) {
+                      // Si es el nodo "Academia", abrir el video
+                      setIsVideoOpen(true);
+                    } else {
+                      setActiveNode(isActive ? null : node.id);
+                    }
+                  }}
                   className="cursor-pointer"
                 >
                   <div className={`
-                    p-4 rounded-lg border-2 transition-all duration-300
+                    p-4 rounded-lg border-2 transition-all duration-300 relative h-32 flex items-center justify-center
                     ${isActive 
                       ? `bg-${node.color}-500/20 border-${node.color}-500/50 shadow-glow-md` 
                       : 'bg-white/5 border-white/10 hover:bg-white/10 hover:border-white/20'
                     }
                   `}>
+                    {/* Indicador de galería para el nodo "Anuncio" */}
+                    {node.id === 1 && (
+                      <div className="absolute top-2 right-2 bg-primary-500/20 border border-primary-500/40 rounded-full p-1">
+                        <Image className="w-3 h-3 text-primary-400" />
+                      </div>
+                    )}
+                    
+                    {/* Indicador de video para el nodo "Academia" */}
+                    {node.id === 2 && (
+                      <div className="absolute top-2 right-2 bg-secondary-500/20 border border-secondary-500/40 rounded-full p-1">
+                        <Play className="w-3 h-3 text-secondary-400" />
+                      </div>
+                    )}
+                    
                     <div className="flex flex-col items-center text-center">
                       <div className={`
                         p-3 rounded-full mb-2
@@ -111,13 +139,16 @@ const Moment4 = () => {
                         `} />
                       </div>
                       <p className={`
-                        text-sm font-semibold mb-1
+                        text-sm font-semibold
                         ${isActive ? 'text-foreground' : 'text-foreground/80'}
                       `}>
                         {node.label}
                       </p>
-                      {index < journeyNodes.length - 1 && (
-                        <ArrowRight className="w-4 h-4 text-foreground/30 mt-2 hidden md:block" />
+                      {node.id === 1 && (
+                        <p className="text-xs text-primary-400 mt-1">Ver ejemplos</p>
+                      )}
+                      {node.id === 2 && (
+                        <p className="text-xs text-secondary-400 mt-1">Ver video</p>
                       )}
                     </div>
                   </div>
@@ -220,6 +251,20 @@ const Moment4 = () => {
         {/* CTA - Agenda una Reunión */}
         <ScheduleButton delay={0.7} className="mt-8" />
       </div>
+
+      {/* Galería de Ejemplos */}
+      <ExamplesGallery 
+        isOpen={isGalleryOpen} 
+        onClose={() => setIsGalleryOpen(false)} 
+      />
+
+      {/* Modal de Video */}
+      <VideoModal 
+        isOpen={isVideoOpen} 
+        onClose={() => setIsVideoOpen(false)}
+        videoUrl="https://player.vimeo.com/video/1135191150?badge=0&autopause=0&player_id=0&app_id=58479"
+        title="Open Onboarding Academy - Merahki"
+      />
     </motion.div>
   );
 };
