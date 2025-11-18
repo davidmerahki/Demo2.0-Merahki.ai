@@ -57,10 +57,9 @@ const VideoModal = ({ isOpen, onClose, videoUrl, title = "Video" }) => {
               src={videoUrl}
               className="absolute top-0 left-0 w-full h-full rounded-lg"
               frameBorder="0"
-              allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
-              referrerPolicy="strict-origin-when-cross-origin"
+              allow="autoplay; fullscreen; picture-in-picture; clipboard-write"
+              allowFullScreen
               title={title}
-              loading="lazy"
             />
           </div>
 

@@ -262,7 +262,7 @@ const Moment4 = () => {
       <VideoModal 
         isOpen={isVideoOpen} 
         onClose={() => setIsVideoOpen(false)}
-        videoUrl="https://player.vimeo.com/video/1135191150?badge=0&autopause=0&player_id=0&app_id=58479"
+        videoUrl="https://player.vimeo.com/video/1135191150?h=a1b2c3d4e5&badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1"
         title="Open Onboarding Academy - Merahki"
       />
     </motion.div>
